@@ -117,7 +117,7 @@ app.post('/fee',  (req, res) => {
     })
     res.status(200).send({ status: 'ok' })
 })
-app.post('/compute-fee',  async (req, res) => {
+app.post('/compute-transaction-fee',  async (req, res) => {
     const query = req.body
     const ErrorMessage = `No fee configuration for ${query.Currency} transactions`
     if (query.Currency !== "NGN") return res.status(404).send({Error: ErrorMessage})
