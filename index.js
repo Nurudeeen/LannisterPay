@@ -14,12 +14,11 @@ app.post('/fee',  (req, res) => {
     lines.forEach(async function(line) {
       FEE_ID = line.substring(0,8)
       FEE_CURRENCY = line.substring(9,12)
-      const f = line.search ("FLAT_PERC")
-      if(f==-1){const p = line.search ("PERC")
-  if (p==-1){
-      const g = line.search ("FLAT")
-      if (g==-1) {
+      if(line.search ("FLAT_PERC")==-1){
+  if (line.search ("PERC")==-1){
+      if (line.search ("FLAT")==-1) {
           console.log("Error in input")
+          return res.status(409).send({Error: "Check for valid input format"})
       }else{
           FEE_TYPE ="FLAT"
           FEE_VALUE = line.slice(-3)
@@ -27,13 +26,12 @@ app.post('/fee',  (req, res) => {
   }else{
       FEE_TYPE ="PERC"
       FEE_VALUE = line.slice(-4)
-  }}else{ FEE_TYPE ="FLAT_PERC"
+  }}else{
+      FEE_TYPE ="FLAT_PERC"
       FEE_VALUE = line.slice(-6)
   }
-  const LOCL = line.search("LOCL")
-  if (LOCL==-1){
-      const INTL = line.search("INTL")
-      if(INTL==-1){
+  if (line.search("LOCL")==-1){
+      if(line.search("INTL")==-1){
           FEE_LOCALE="*"
       }else{
           FEE_LOCALE="INTL"
@@ -41,16 +39,11 @@ app.post('/fee',  (req, res) => {
   }else{
       FEE_LOCALE="LOCL"
   }
-  const WALLET = line.search("WALLET-ID")
-  if (WALLET==-1){
-      const USSD = line.search("USSD")
-      if (USSD==-1){
-          const DEBIT = line.search("DEBIT-CARD")
-          if (DEBIT==-1){
-              const CREDIT = line.search("CREDIT-CARD")
-              if (CREDIT==-1){
-                  const ACCOUNT = line.search("BANK-ACCOUNT")
-                  if (ACCOUNT==-1){
+  if (line.search("WALLET-ID")==-1){
+      if (line.search("USSD")==-1){
+          if (line.search("DEBIT-CARD")==-1){
+              if (line.search("CREDIT-CARD")==-1){
+                  if (line.search("BANK-ACCOUNT")==-1){
                       FEE_ENTITY = "*"
                   }else{
                       FEE_ENTITY = "BANK-ACCOUNT"
@@ -67,20 +60,13 @@ app.post('/fee',  (req, res) => {
   }else{
       FEE_ENTITY = "WALLET-ID"
   }
-  const MTN = line.search("MTN")
-  if(MTN==-1){
-      const GLO = line.search("GLO")
-      if (GLO==-1){
-          const AIRTEL = line.search("AIRTEL")
-          if (AIRTEL==-1){
-              const VERVE = line.search("VERVE")
-              if (VERVE==-1){
-                  const MASTERCARD =line.search("MASTERCARD")
-                  if (MASTERCARD==-1){
-                      const VISA = line.search("VISA")
-                      if (VISA==-1){
-                          const AMEX = line.search("AMEX")
-                          if (AMEX==-1){
+  if(line.search("MTN") ==-1){
+      if (line.search("GLO")==-1){
+          if (line.search("AIRTEL")==-1){
+              if (line.search("VERVE")==-1){
+                  if (line.search("MASTERCARD")==-1){
+                      if (line.search("VISA")==-1){
+                          if (line.search("AMEX")==-1){
                               ENTITY_PROPERTY = "*"
                           }else{
                               ENTITY_PROPERTY = "AMEX"
