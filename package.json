@@ -11,7 +11,7 @@
     "Flutterwave",
     "Node",
     "js",
-    "Mongo-DB",
+    "NeDB",
     "Heroku",
     "API"
   ],
@@ -19,10 +19,9 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.2",
-    "dotenv": "^16.0.0",
     "eol": "^0.9.1",
     "express": "^4.17.3",
-    "mongoose": "^6.2.6",
+    "nedb": "^1.8.0",
     "nodemon": "^2.0.15"
   }
 }
